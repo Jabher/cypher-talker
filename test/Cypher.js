@@ -19,10 +19,11 @@ describe('Cypher Query lib', () => {
             .and.to.have.property('params')
             .that.is.deep.equal({[`${Cypher.defaultPrefix}0_0`]: 'testVar'})
     })
-    it('should create query with array query param', () => {
-        expect(Cypher.tag`test${[Cypher.tag`${`testVar`}`]}`.getRawQuery())
+    it('should create query with array param', () => {
+        const arr = ['test']
+        expect(Cypher.tag`test${Cypher.tag`${arr}`}`.getRawQuery())
             .to.deep.include({query: `test{${Cypher.defaultPrefix}0_0}`})
             .and.to.have.property('params')
-            .that.is.deep.equal({[`${Cypher.defaultPrefix}0_0`]: 'testVar'})
+            .that.is.deep.equal({[`${Cypher.defaultPrefix}0_0`]: arr})
     })
 })
