@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 import {expect} from 'chai'
-import {Cypher} from '../lib/Cypher/index'
+const {Cypher} = global
 
 describe('Cypher Query lib', () => {
     it('should create query', () => {
