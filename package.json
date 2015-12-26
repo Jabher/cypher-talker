@@ -1,6 +1,6 @@
 {
   "name": "cypher-talker",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Simple ES6/7-oriented lib to work with neo4j and (in future) with OpenCypher-compatible databases",
   "main": "build/index.js",
   "scripts": {
