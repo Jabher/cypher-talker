@@ -1,4 +1,7 @@
 # Simple ES6/7-oriented lib to work with neo4j and (in future) with OpenCypher-compatible databases
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Jabher/cypher-talker.svg)](https://greenkeeper.io/)
+
 _this software is early alpha stage and is not supposed to be used in production_
 
 _Intended to be used as backing layer for other libraries_
