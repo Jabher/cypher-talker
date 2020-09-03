@@ -1,8 +1,7 @@
 .idea
-lib
-test
 .gitignore
-.babelrc
 coverage
 node_modules
 npm-debug.log
+package-lock.json
+test.m

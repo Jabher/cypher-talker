@@ -1,49 +1,76 @@
-# Simple ES6/7-oriented lib to work with neo4j and (in future) with OpenCypher-compatible databases
-_this software is early alpha stage and is not supposed to be used in production_
+# Cypher-talker: Tag strings for neo4j
 
-_Intended to be used as backing layer for other libraries_
+Tired of writing neo4j queries like this?
+```javascript
+s.run('MERGE (alice:Person {name : $nameParam, age : $ageParam})', {
+    nameParam: 'Alice',
+    ageParam: 21
+})
+```
 
-## Usage example
+Try `cypher-talker` to write like this:
+```javascript
+import t from 'cypher-talker'
+
+s.run(...t`MERGE (alice:Person {name : ${'Alice'}, age : ${21})`)
+```
+
+Or even like this:
+```javascript
+import t from 'cypher-talker'
+
+const alice = {name: 'Alice', age: 21}
+s.run(...t`MERGE (alice:Person ${t(alice)})`)
+```
+
+It converts template strings to real queries with params, primitives and objects to query variables,
+allows nested queries and even has special (yet simple) syntax for inlining and object spread.
+
+It just works.
+
+### Installation
+
+Just run `npm i cypher-talker` or `pnpm i cypher-talker` or `yarn add cypher-talker`, whatever you like.
+
+Then use it. It ships with single default export. 
 
 ```javascript
-console.log(Cypher.tag`test: ${'testVar'}`.getRawQuery()) 
-// => {query: 'test: {v0}', params: {v0: 'testVar'}}
+import t from 'cypher-talker'
+// or 
+const t = require('cypher-talker')
 ```
 
-and embedded requests: 
+It ships both with CommonJS and ESM packages, runs in latest browsers and NodeJS.
+
+It even should work with Deno. It is single-module package (use `index.mjs`)
+
+## Variables
+
+Just use variables. Cypher-talker will extract them.
+Variables come in incremental order, `v0`, then `v1`, `v2` and so on.
+
 ```javascript
-const req = Cypher.tag`test2: ${`testVar`}`
-console.log(Cypher.tag`test${req}`.getRawQuery())
-// => {query: 'test: test2: {v0_0}', params: {v0_0: 'testVar'}}
+const q = t`hello ${'world'}`
+console.log([...q]) // ['hello {v0}', {v0: 'world'}]
 ```
 
-Utility helpers:
+## Nested queries
+
+If you need to re-use query parts, just inline them. No nesting limits.
+
 ```javascript
-//Cypher.raw:
-Cypher.tag`CREATE (entry:${Cypher.raw(label)})`
-//cypher.literal - iterates over object so it can be used for props:
-Cypher.tag`MATCH (target ${Cypher.literal(props)})`
-```
- 
-## API
-
-```typescript
-export class Connection {
-    constructor(/*neo4j arguments for now*/) 
-}
-
-export class Cypher {
-    static defaultPrefix: string = 'v'
-    
-    static raw(string): Cypher.Raw
-    
-    static tag(Array<string>, ...Array<any>): Cypher // used as string tag
-       
-    static literal(Object): Cypher
-    
-    getRawQuery(): {query: string, params: Object}     
-}
+const q1 = t`hello`
+const q2 = t`${q1} world`
+console.log([...q2]) // ['hello world', {}]
 ```
 
-## Roadmap
-- [ ] request optimisation
+## Spreading the object
+
+Sometimes you want to pass object where you cannot really pass variable - like into the pattern-matching query.
+
+Use `t()` instead.
+
+```javascript
+const q = t`${t({hello: 'world'})}`
+console.log([...q]) // ['hello: {v0}', {v0: 'world'}]
+```
