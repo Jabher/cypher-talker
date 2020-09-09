@@ -49,10 +49,12 @@ const __internals__ = {
 const tag = (...args) => {
   if (Array.isArray(args[0])) {
     return new Cypher(args[0], args.slice(1))
-  } else if (args[0] instanceof Object) {
+  } else if (args[0] instanceof Object && args[0] !== null) {
     const object = args[0]
     const keys = args[1] || Object.keys(args[0])
     return new Cypher([...keys.map(key => `${key}:`), ''], keys.map(key => object[key]))
+  } else if (args.length === 1 && typeof args[0] === 'string') {
+    return new Cypher(args, [])
   } else {
     throw new TypeError('unsupported arguments')
   }

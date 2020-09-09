@@ -13,5 +13,4 @@ test('cypher tag', (t) => {
   t.deepEqual([...tag`test(${tag({foo: 'bar'})})`], ['test(foo:{v0})', {
     v0: 'bar'
   }])
-  t.deepEqual([...tag`${tag}`])
 })
