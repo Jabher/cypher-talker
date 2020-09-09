@@ -1,4 +1,5 @@
 # Cypher-talker: Tag strings for neo4j
+_Zero dependencies and zero pain_ 
 
 Tired of writing neo4j queries like this?
 ```javascript
@@ -74,3 +75,13 @@ Use `t()` instead.
 const q = t`${t({hello: 'world'})}`
 console.log([...q]) // ['hello: {v0}', {v0: 'world'}]
 ```
+
+## How it works
+
+`t` is a overloaded function that handles
+- template strings syntax
+- single object argument
+- or single string argument
+
+and always returning an iterable object of 2 items: resulting query and vars arg.
+See tests for detailed examples.
