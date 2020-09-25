@@ -7,7 +7,7 @@ const toQuery = (value) => {
   } else {
     const varId = `v${varCounter}`
     varCounter += 1
-    return { query: `{${varId}}`, params: { [varId]: value } }
+    return { query: `$${varId}`, params: { [varId]: value } }
   }
 }
 

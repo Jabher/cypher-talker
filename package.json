@@ -1,9 +1,12 @@
 {
   "name": "cypher-talker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tag strings for neo4j. Write neo4j queries in a natural way",
   "main": "index.js",
   "module": "index.mjs",
+  "repository": {
+    "url": "https://github.com/Jabher/cypher-talker"
+  },
   "scripts": {
     "test": "ava",
     "test:dev": "ava --watch",
@@ -16,6 +19,9 @@
   ],
   "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
   "license": "MIT",
+  "peerDependencies": {
+    "neo4j-driver": "^4.0.0"
+  },
   "devDependencies": {
     "babel-register": "^6.3.13",
     "ava": "^3.11.1",

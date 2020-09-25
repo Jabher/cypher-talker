@@ -52,7 +52,7 @@ Variables come in incremental order, `v0`, then `v1`, `v2` and so on.
 
 ```javascript
 const q = t`hello ${'world'}`
-console.log([...q]) // ['hello {v0}', {v0: 'world'}]
+console.log([...q]) // ['hello $v0', {v0: 'world'}]
 ```
 
 ## Nested queries
@@ -73,7 +73,7 @@ Use `t()` instead.
 
 ```javascript
 const q = t`${t({hello: 'world'})}`
-console.log([...q]) // ['hello: {v0}', {v0: 'world'}]
+console.log([...q]) // ['hello: $v0', {v0: 'world'}]
 ```
 
 ## How it works
