@@ -1,6 +1,6 @@
 {
   "name": "cypher-talker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tag strings for neo4j. Write neo4j queries in a natural way",
   "main": "index.js",
   "module": "index.mjs",
@@ -23,6 +23,7 @@
     "neo4j-driver": "^4.0.0"
   },
   "devDependencies": {
+    "typescript": "next",
     "babel-register": "^6.3.13",
     "ava": "^3.11.1",
     "rollup": "^2.26.2"
