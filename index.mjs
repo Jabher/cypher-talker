@@ -18,8 +18,6 @@ const getResults = (strings, values) =>
       ({ query: `${query}${strings[index]}`, params }))
 
 class Cypher {
-  static defaultPrefix = 'v'
-
   constructor (strings, values) { Object.assign(this, { strings, values }) }
 
   * [Symbol.iterator] () {
