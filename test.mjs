@@ -14,10 +14,5 @@ test('cypher tag', (t) => {
     v0: 'bar'
   }])
 
-  t.deepEqual(tag`test`(), ['test', {}])
-  t.deepEqual([...tag`test(${tag({foo: 'bar'})})`()], ['test(foo:$v0)', {
-    v0: 'bar'
-  }])
-  t.deepEqual([...tag`test${() => 'testVar'}`()], ['test$v0', { v0: 'testVar' }])
-  t.deepEqual([...tag`test${({test}) => test}`({test: 'testVar'})], ['test$v0', { v0: 'testVar' }])
+
 })
